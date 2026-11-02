@@ -1,0 +1,17 @@
+# Customize the claude-code profile
+[profiles]
+claude-code = "$claude_model$claude_context$claude_cost"
+
+# Configure individual modules
+[claude_model]
+format = "[$symbol$model]($style) "
+symbol = "🤖 "
+style = "bold blue"
+
+[claude_context]
+format = "[$gauge $percentage]($style) "
+gauge_width = 10
+
+[claude_cost]
+format = "[$symbol$cost]($style) "
+symbol = "💰 "
