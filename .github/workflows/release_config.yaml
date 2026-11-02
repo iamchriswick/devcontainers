@@ -32,7 +32,7 @@ jobs:
           # token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
           # this is a built-in strategy in release-please, see "Action Inputs"
           # for more options
-          # release-type: simple
+          release-type: simple
           # should breaking changes before 1.0.0 produce minor bumps
           bump-minor-pre-major: "true"
           # should feat changes before 1.0.0 produce patch bumps instead of minor bumps
