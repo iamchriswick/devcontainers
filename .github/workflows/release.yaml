@@ -1,4 +1,4 @@
-name: "Release dev container features & Generate Documentation"
+name: "TEST: Release Dev Container Features to Github & Generate Documentation"
 on:
   workflow_dispatch:
 
@@ -13,15 +13,36 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: "Publish Features"
+      - name: "Validate Features & Generate Documentation"
         uses: devcontainers/action@v1
         with:
-          publish-features: "true"
+          validate-only: "true"
           base-path-to-features: "./src"
           generate-docs: "true"
           
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create releases for Features
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          npm install -g @devcontainers/cli
+          out="$RUNNER_TEMP/features-output"
+          devcontainer features package ./src --output-folder "$out" --force-clean-output-folder
+          jq -r '.features[] | "\(.id) \(.version)"' "$out/devcontainer-collection.json" | while read -r id version; do
+              tag="feature_${id}_${version}"
+              if gh release view "$tag" > /dev/null 2>&1; then
+                  echo "Release $tag already exists. Skipping."
+                  continue
+              fi
+              if ! git ls-remote --exit-code --tags origin "refs/tags/$tag" > /dev/null; then
+                  git tag "$tag" "$GITHUB_SHA"
+                  git push origin "refs/tags/$tag"
+              fi
+              gh release create "$tag" "$out/devcontainer-feature-$id.tgz" --verify-tag --title "$tag" --notes-from-tag
+          done
 
       - name: Create PR for Documentation
         id: push_image_info
@@ -43,5 +64,5 @@ jobs:
           # Push
           if [ "$NO_UPDATES" != "true" ] ; then
               git push origin "$branch"
-              gh pr create --title "$message" --body "$message"
+              gh pr create --title "$message" --body "$message" --base features
           fi
