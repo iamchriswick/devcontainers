@@ -34,7 +34,6 @@ jobs:
           jq -r '.features[] | "\(.id) \(.version)"' "$out/devcontainer-collection.json" | while read -r id version; do
               tag="feature_${id}_v${version}"
               latest="feature_${id}"
-              file="$out/devcontainer-feature-$id.tgz"
               if gh release view "$tag" > /dev/null 2>&1; then
                   echo "Release $tag already exists. Skipping."
                   continue
@@ -46,14 +45,10 @@ jobs:
                   git tag "$tag" "$GITHUB_SHA"
                   git push origin "refs/tags/$tag"
               fi
-              gh release create "$tag" "$file" --verify-tag --title "$tag" --notes-from-tag
-              # Move the versionless tag to the same commit and replace its release
-              if gh release view "$latest" > /dev/null 2>&1; then
-                  gh release delete "$latest" --yes
-              fi
+              gh release create "$tag" "$out/devcontainer-feature-$id.tgz" --verify-tag --title "$tag" --notes-from-tag
+              # Move the versionless tag to the same commit
               git tag -f "$latest" "$(git rev-list -n 1 "$tag")"
               git push -f origin "refs/tags/$latest"
-              gh release create "$latest" "$file" --verify-tag --title "$latest" --notes-from-tag
           done
 
       - name: Create PR for Documentation
