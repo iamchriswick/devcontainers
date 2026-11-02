@@ -1,4 +1,4 @@
-name: "TEST: Release dev container features & Generate Documentation"
+name: "TEST: Publish dev container features & Generate Documentation"
 on:
   workflow_dispatch:
 
