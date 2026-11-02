@@ -1,0 +1,41 @@
+name: "TEST: Release Dev Container Helper Files to Github"
+on:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+  push:
+    branches:
+      - config
+    
+jobs:  
+  release-please:
+    if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: config
+          fetch-depth: 0
+  
+      - uses: googleapis/release-please-action@v4
+        with:
+          # this assumes that you have created a personal access token
+          # (PAT) and configured it as a GitHub action secret named
+          # `MY_RELEASE_PLEASE_TOKEN` (this secret name is not important).
+          # token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
+          # this is a built-in strategy in release-please, see "Action Inputs"
+          # for more options
+          # release-type: simple
+          # should breaking changes before 1.0.0 produce minor bumps
+          bump-minor-pre-major: "true"
+          # should feat changes before 1.0.0 produce patch bumps instead of minor bumps
+          bump-patch-for-minor-pre-major: "true"
+          # ff true, do not attempt to create release pull requests. This is useful if splitting release tagging from PR creation.
+          skip-github-pull-request: "true"
+          
