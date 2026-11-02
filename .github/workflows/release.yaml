@@ -4,7 +4,7 @@ on:
 
 jobs:
   deploy:
-    if: ${{ github.ref == 'refs/heads/features' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -12,6 +12,8 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: features
 
       - name: "Validate Features & Generate Documentation"
         uses: devcontainers/action@v1
@@ -42,7 +44,7 @@ jobs:
               if git ls-remote --exit-code --tags origin "refs/tags/$tag" > /dev/null; then
                   git fetch origin "refs/tags/$tag:refs/tags/$tag"
               else
-                  git tag "$tag" "$GITHUB_SHA"
+                  git tag "$tag" HEAD
                   git push origin "refs/tags/$tag"
               fi
               gh release create "$tag" "$out/devcontainer-feature-$id.tgz" --verify-tag --title "$tag" --notes-from-tag
