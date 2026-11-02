@@ -1,4 +1,4 @@
-name: "TEST: Release devcontainer features to Github & Generate Documentation"
+name: "TEST: Release Dev Container Features to Github & Generate Documentation"
 on:
   workflow_dispatch:
 
