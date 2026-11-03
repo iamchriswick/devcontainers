@@ -93,5 +93,9 @@
   "theme": "auto",
   "switchModelsOnFlag": true,
   "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": false
+  "agentPushNotifEnabled": false,
+  "statusLine": {
+        "type": "command",
+        "command": "starship statusline claude-code"
+    }
 }
