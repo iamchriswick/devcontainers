@@ -83,12 +83,12 @@
       }
     }
   },
-  "plansDirectory": "./.claude/docs/plans/todo",
+  "plansDirectory": "/workspaces/devcontainers/.claude/docs/plans/todo",
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
-  "autoMemoryDirectory": "./.claude/memory",
+  "autoMemoryDirectory": "/workspaces/devcontainers/.claude/memory",
   "claudeMdExcludes": [
-    "./.claude/worktrees/**/CLAUDE.md"
+    "/workspaces/devcontainers/.claude/worktrees/**/CLAUDE.md"
   ],
   "theme": "auto",
   "switchModelsOnFlag": true,
