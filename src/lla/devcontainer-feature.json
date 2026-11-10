@@ -14,6 +14,7 @@
             "type": "string"
         }
     },
+    "postCreateCommand": "/usr/local/share/lla-config-check.sh",
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils",
         "ghcr.io/devcontainers/features/github-cli",

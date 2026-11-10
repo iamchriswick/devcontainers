@@ -18,4 +18,7 @@ $nanolayer_location \
     "ghcr.io/devcontainers-extra/features/gh-release:1" \
     --option repo='chaqchase/lla' --option binaryNames='lla' --option version="$VERSION"
 
+cp ./lla-config-check.sh /usr/local/share/lla-config-check.sh
+chmod +x /usr/local/share/lla-config-check.sh
+
 echo 'Done!'
