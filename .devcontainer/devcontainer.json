@@ -1,16 +1,58 @@
-// More info: https://containers.dev/implementors/json_reference/
 {
-	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-18-bullseye",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:5-24-trixie",
+	"name": "Dev Containers",
+		"runArgs": [
+		"--name",
+		"iamchriswick-devcontainers"
+	],
 	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+		"ghcr.io/devcontainers/features/node:2": {
+			"version": "none",
+			"packages": [
+				"@devcontainers/cli"
+			]
+		},
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"configureZshAsDefaultShell": true,
+			"installOhMyZshConfig": false,
+			"upgradePackages": true
+		},
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/joshuanianji/devcontainer-features/github-cli-persistence:1": {},
+		"ghcr.io/devcontainers-extra/features/claude-code:2.0.3": {},
+		// "ghcr.io/joshuanianji/devcontainer-features/claude-code-persistence:1": {},
+		"ghcr.io/esimkowitz/devcontainer-features/claude-code-persistence:1": {
+			"persistClaudeDir": true,
+			"persistClaudeJson": true,
+			"sharedAcrossContainers": true
+		},
+		"ghcr.io/devcontainers-extra/features/eza:1": {},
+		// "ghcr.io/devcontainers-extra/features/zsh-plugins:0": {
+		// 	// "plugins": "nvm eza git gh vscode zsh-syntax-highlighting"
+		// },
+		"ghcr.io/devcontainers-extra/features/starship:1": {}
 	},
 	"customizations": {
 		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.allowWorkspaceConfiguration": false,
+				"dotfiles.repository": "iamchriswick/dotfiles",
+				"dotfiles.targetPath": "~/dotfiles",
+				"dotfiles.installCommand": "~/dotfiles/src/devcontainers/install.sh"
+			},
 			"extensions": [
-				"mads-hartmann.bash-ide-vscode",
-				"dbaeumer.vscode-eslint"
+				"github.vscode-github-actions",
+				"ms-vscode-remote.remote-containers"
 			]
 		}
 	},
-	"postCreateCommand": "npm install -g @devcontainers/cli"
+	"remoteUser": "node",
+	"mounts": [
+		"source=project-devcontainers-claude-code-config,target=/workspaces/devcontainers/.claude,type=volume"
+	],
+	"containerEnv": {
+		"CLAUDE_CONFIG_DIR": "/home/node/.claude"
+	},
+	"onCreateCommand": "sudo chown -R node:node /home/node/.claude"
 }
