@@ -39,7 +39,7 @@
 				"terminal.integrated.allowWorkspaceConfiguration": false,
 				"dotfiles.repository": "iamchriswick/dotfiles",
 				"dotfiles.targetPath": "~/dotfiles",
-				"dotfiles.installCommand": "~/dotfiles/src/devcontainers/install.sh"
+				"dotfiles.installCommand": "src/devcontainers/install.sh"
 			},
 			"extensions": [
 				"github.vscode-github-actions",
