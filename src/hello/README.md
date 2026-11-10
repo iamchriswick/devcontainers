@@ -7,7 +7,7 @@ A hello world feature
 
 ```json
 "features": {
-    "ghcr.io/iamchriswick/devcontainers/hello:1": {}
+    "ghcr.io/iamchriswick/devcontainers/features/hello:1": {}
 }
 ```
 
