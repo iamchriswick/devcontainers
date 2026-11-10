@@ -65,7 +65,8 @@
   },
   "hooks": {},
   "worktree": {
-    "bgIsolation": "worktree"
+    "bgIsolation": "worktree",
+    "location": ".claude/worktrees"
   },
   "enabledPlugins": {
     "claude-md-management@synced": false,
@@ -83,19 +84,15 @@
       }
     }
   },
-  "plansDirectory": "/workspaces/devcontainers/.claude/docs/plans/todo",
+  "plansDirectory": ".claude/docs/plans/todo",
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
-  "autoMemoryDirectory": "/workspaces/devcontainers/.claude/memory",
+  "autoMemoryDirectory": ".claude/memory",
   "claudeMdExcludes": [
-    "/workspaces/devcontainers/.claude/worktrees/**/CLAUDE.md"
+    ".claude/worktrees/**/CLAUDE.md"
   ],
   "theme": "auto",
   "switchModelsOnFlag": true,
   "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": false,
-  "statusLine": {
-        "type": "command",
-        "command": "starship statusline claude-code"
-    }
+  "agentPushNotifEnabled": false
 }

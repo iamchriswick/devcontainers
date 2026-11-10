@@ -2,6 +2,10 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
 	"name": "Dev Containers",
+		"runArgs": [
+		"--name",
+		"iamchriswick-devcontainers"
+	],
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:5-24-trixie",
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -22,5 +26,9 @@
 	],
 	"containerEnv": {
 		"CLAUDE_CONFIG_DIR": "/home/node/.claude"
-	}
+	},
+	"postCreateCommand": [
+		"sudo chown -R node:node /home/node/.claude",
+		"sudo chown -R node:node /workspaces/devcontainers/.claude"
+	]
 }
