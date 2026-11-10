@@ -7,7 +7,7 @@ A feature to remind you of your favorite color
 
 ```json
 "features": {
-    "ghcr.io/iamchriswick/devcontainers/color:1": {}
+    "ghcr.io/iamchriswick/devcontainers/features/color:1": {}
 }
 ```
 
