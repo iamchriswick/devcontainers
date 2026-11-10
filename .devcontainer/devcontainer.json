@@ -1,34 +1,58 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:5-24-trixie",
 	"name": "Dev Containers",
 		"runArgs": [
 		"--name",
 		"iamchriswick-devcontainers"
 	],
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:5-24-trixie",
-	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
-		"ghcr.io/devcontainers/features/github-cli:1": {}
+		"ghcr.io/devcontainers/features/node:2": {
+			"version": "none",
+			"packages": [
+				"@devcontainers/cli"
+			]
+		},
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"configureZshAsDefaultShell": true,
+			"installOhMyZshConfig": false,
+			"upgradePackages": true
+		},
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/joshuanianji/devcontainer-features/github-cli-persistence:1": {},
+		"ghcr.io/devcontainers-extra/features/claude-code:2.0.3": {},
+		// "ghcr.io/joshuanianji/devcontainer-features/claude-code-persistence:1": {},
+		"ghcr.io/esimkowitz/devcontainer-features/claude-code-persistence:1": {
+			"persistClaudeDir": true,
+			"persistClaudeJson": true,
+			"sharedAcrossContainers": true
+		},
+		"ghcr.io/devcontainers-extra/features/eza:1": {},
+		// "ghcr.io/devcontainers-extra/features/zsh-plugins:0": {
+		// 	// "plugins": "nvm eza git gh vscode zsh-syntax-highlighting"
+		// },
+		"ghcr.io/devcontainers-extra/features/starship:1": {}
 	},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "yarn install",
-	// Configure tool-specific properties.
-	// "customizations": {},
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.allowWorkspaceConfiguration": false,
+				"dotfiles.repository": "iamchriswick/dotfiles",
+				"dotfiles.targetPath": "~/dotfiles",
+				"dotfiles.installCommand": "~/dotfiles/src/devcontainers/install.sh"
+			},
+			"extensions": [
+				"github.vscode-github-actions",
+				"ms-vscode-remote.remote-containers"
+			]
+		}
+	},
 	"remoteUser": "node",
 	"mounts": [
-		"source=user-devcontainers-claude-code-config,target=/home/node/.claude,type=volume",
 		"source=project-devcontainers-claude-code-config,target=/workspaces/devcontainers/.claude,type=volume"
 	],
 	"containerEnv": {
 		"CLAUDE_CONFIG_DIR": "/home/node/.claude"
 	},
-	"postCreateCommand": [
-		"sudo chown -R node:node /home/node/.claude",
-		"sudo chown -R node:node /workspaces/devcontainers/.claude"
-	]
+	"onCreateCommand": "sudo chown -R node:node /home/node/.claude"
 }
