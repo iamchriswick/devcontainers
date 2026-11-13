@@ -1,0 +1,14 @@
+{
+    "lla_with_common_tools": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "ghcr.io/devcontainers/features/common-utils:2": {
+                "installZsh": false,
+                "installOhMyZsh": false,
+                "upgradePackages": false
+            },
+            "ghcr.io/devcontainers/features/github-cli:1": {},
+            "lla": {}
+        }
+    }
+}
