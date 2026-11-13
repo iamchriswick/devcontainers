@@ -26,7 +26,8 @@
 			"persistClaudeJson": true,
 			"sharedAcrossContainers": true
 		},
-		"ghcr.io/devcontainers-extra/features/eza:1": {},
+		// "ghcr.io/devcontainers-extra/features/eza:1": {},
+		"ghcr.io/iamchriswick/devcontainers/features/lla:0": {},
 		// "ghcr.io/devcontainers-extra/features/zsh-plugins:0": {
 		// 	// "plugins": "nvm eza git gh vscode zsh-syntax-highlighting"
 		// },
