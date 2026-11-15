@@ -23,11 +23,11 @@ jobs:
           generate-docs: "true"
           
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MAIN_REPO_PAT }}
 
       - name: Create releases for Features
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MAIN_REPO_PAT }}
         run: |
           set -e
           npm install -g @devcontainers/cli
@@ -61,7 +61,7 @@ jobs:
       - name: Create PR for Documentation
         id: push_image_info
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MAIN_REPO_PAT }}
         run: |
           set -e
           echo "Start."
