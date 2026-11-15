@@ -22,7 +22,8 @@
 		"ghcr.io/joshuanianji/devcontainer-features/github-cli-persistence": {},
 		"ghcr.io/devcontainers-extra/features/claude-code": {},
 		"ghcr.io/esimkowitz/devcontainer-features/claude-code-persistence": {
-			"persistClaudeDir": true
+			"persistClaudeDir": true,
+			"persistClaudeJson": false
 		},
 		"ghcr.io/devcontainers-extra/features/starship": {}
 		// "ghcr.io/devcontainers-extra/features/zsh-plugins:0": {
@@ -41,10 +42,14 @@
 			"extensions": [
 				"github.vscode-github-actions",
 				"ms-vscode-remote.remote-containers",
-				"mkhl.shfmt"
+				"mkhl.shfmt",
+				"esbenp.prettier-vscode"
 			]
 		}
 	},
 	"remoteUser": "node",
+	"containerEnv": {
+		"CLAUDE_CONFIG_DIR": "/home/node/.claude"
+	},
 	"onCreateCommand": "curl -sS https://webinstall.dev/shfmt | bash"
 }

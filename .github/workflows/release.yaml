@@ -1,0 +1,54 @@
+name: "Package and Publish Dev Container Features"
+on:
+  workflow_dispatch:
+
+  repository_dispatch:
+    types: [submodule-pointer-commited]
+
+# Prevents parallel pushes from colliding if two submodules update at once
+concurrency:
+  group: submodule-pointer-commited
+  cancel-in-progress: false
+
+jobs:
+  publishFeatures:
+    if: ${{ github.event.client_payload.submodule == 'features' && github.event.client_payload.pointer_status == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      packages: write
+
+    steps:
+      - name: Checkout ${{ github.event.client_payload.submodule}} repository
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          token: ${{ secrets.MAIN_REPO_PAT }}
+            
+      - name: Publish Feature
+        uses: devcontainers/action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish-features: 'true'
+          oci-registry: ghcr.io
+          features-namespace: iamchriswick/devcontainers/features
+          base-path-to-features: ./features/src
+          generate-docs: 'true'
+      
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.MAIN_REPO_PAT }}
+          path: features
+          base: main
+          commit-message: 'Automated documentation update [skip ci]'
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+          branch: automated-documentation-update-${{ github.run_id }}
+          title: Automated documentation update
+          body: Automated documentation update
+          labels: |
+            automated docs pr
+          assignees: iamchriswick

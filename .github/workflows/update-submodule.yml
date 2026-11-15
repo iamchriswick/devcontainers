@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  update-submodule:
+  updateSubmodule:
     name: Update ${{ github.event.client_payload.submodule }} Submodule
     runs-on: ubuntu-latest
     permissions:
@@ -18,12 +18,12 @@ jobs:
 
     steps:
       - name: Checkout main repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: recursive
           # Optional: Uncomment the line below and add the PAT to your main repo secrets
           # if you want this commit to trigger your other CI/CD workflows:
-          # token: ${{ secrets.MAIN_REPO_PAT }}
+          token: ${{ secrets.MAIN_REPO_PAT }}
 
       - name: Pull latest changes in ${{ github.event.client_payload.submodule }}
         run: |
@@ -32,9 +32,18 @@ jobs:
           git status
 
       - name: Commit and push updated submodule pointer
+        id: submodule_commit_step
         run: |
           SUBMODULE="${{ github.event.client_payload.submodule }}"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add "$SUBMODULE"
           git diff --staged --quiet || (git commit -m "chore: update $SUBMODULE submodule" && git push)
+
+      - name: Trigger release workflow
+        uses: peter-evans/repository-dispatch@v4
+        with:
+            token: ${{ secrets.MAIN_REPO_PAT }}
+            repository: iamchriswick/devcontainers
+            event-type: submodule-pointer-commited
+            client-payload: '{"submodule": "${{ github.event.client_payload.submodule }}", "pointer_status": "${{ steps.submodule_commit_step.outcome }}"}'
