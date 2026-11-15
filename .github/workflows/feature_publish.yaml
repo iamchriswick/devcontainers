@@ -50,7 +50,7 @@ jobs:
           git checkout -b $branch
 
           # Integrate the remote changes before pushing
-          git pull
+          git pull $branch
 
           # Add / update and commit
           git add */**/README.md
