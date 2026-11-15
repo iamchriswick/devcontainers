@@ -38,19 +38,26 @@ jobs:
         run: |
           set -e
           cd features
-          
+
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          
+
           branch=automated-documentation-update-$GITHUB_RUN_ID
           git checkout -b "$branch"
           message='Automated documentation update'
-          
+
           git add src/**/README.md
           git commit -m "$message [skip ci]" || export NO_UPDATES=true
-          
+
           if [ "$NO_UPDATES" != "true" ]; then
+              # Remove checkout's persisted authorization header, if present.
+              git config --local --unset-all http.https://github.com/.extraheader || true
+
+              # Use the PAT for the Git push. GH_TOKEN must be set in this step's env.
+              git config --local credential.helper \
+                '!f() { echo "username=x-access-token"; echo "password=$GH_TOKEN"; }; f'
+
               git push origin "$branch"
               gh pr create --title "$message" --body "$message" --base main
           fi
-
+          
