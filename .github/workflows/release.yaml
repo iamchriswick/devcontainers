@@ -23,7 +23,18 @@ jobs:
       - name: Checkout ${{ github.event.client_payload.submodule}} repository
         uses: actions/checkout@v7
         with:
-          submodules: recursive
+          token: ${{ secrets.MAIN_REPO_PAT }}
+
+      - name: Read features submodule pointer
+        id: pointer
+        run: echo "sha=$(git rev-parse HEAD:features)" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout features at pointer
+        uses: actions/checkout@v7
+        with:
+          repository: iamchriswick/devcontainer-features
+          ref: ${{ steps.pointer.outputs.sha }}
+          path: features
           token: ${{ secrets.MAIN_REPO_PAT }}
             
       - name: Publish Feature
