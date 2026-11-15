@@ -1,0 +1,6 @@
+[submodule "features"]
+	path = features
+	url = https://github.com/iamchriswick/devcontainer-features.git
+[submodule "templates"]
+	path = templates
+	url = https://github.com/iamchriswick/devcontainer-templates.git
