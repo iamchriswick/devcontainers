@@ -23,7 +23,7 @@
 		"ghcr.io/devcontainers-extra/features/claude-code": {},
 		"ghcr.io/esimkowitz/devcontainer-features/claude-code-persistence": {
 			"persistClaudeDir": true,
-			"persistClaudeJson": false
+			"persistClaudeJson": true
 		},
 		"ghcr.io/devcontainers-extra/features/starship": {}
 		// "ghcr.io/devcontainers-extra/features/zsh-plugins:0": {
@@ -51,5 +51,5 @@
 	"containerEnv": {
 		"CLAUDE_CONFIG_DIR": "/home/node/.claude"
 	},
-	"onCreateCommand": "curl -sS https://webinstall.dev/shfmt | bash"
+	"onCreateCommand": "curl -sS https://webinstall.dev/shfmt | bash >/dev/null"
 }
