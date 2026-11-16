@@ -25,7 +25,8 @@
 			"persistClaudeDir": true,
 			"persistClaudeJson": true
 		},
-		"ghcr.io/devcontainers-extra/features/starship": {}
+		"ghcr.io/devcontainers-extra/features/starship": {},
+		"ghcr.io/prulloac/devcontainer-features/chezmoi": {}
 		// "ghcr.io/devcontainers-extra/features/zsh-plugins:0": {
 		// 	// "plugins": "nvm eza git gh vscode zsh-syntax-highlighting"
 		// },
@@ -44,7 +45,8 @@
 				"ms-vscode-remote.remote-containers",
 				"mkhl.shfmt",
 				"esbenp.prettier-vscode",
-				"oderwat.indent-rainbow"
+				"oderwat.indent-rainbow",
+				"quentinguidee.gitignore-ultimate"
 			]
 		}
 	},
