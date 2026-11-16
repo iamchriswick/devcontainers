@@ -1,5 +1,5 @@
 {
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:5-24-trixie",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:5-24-bookworm",
 	"name": "Devcontainer Features & Templates",
 	"runArgs": [
 		"--name",
@@ -7,17 +7,15 @@
 	],
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils": {
+			"upgradePackages": true,
 			"configureZshAsDefaultShell": true,
-			"installOhMyZshConfig": false,
-			"upgradePackages": false
+			"installOhMyZshConfig": false
 		},
-		"ghcr.io/devcontainers/features/node:2": {
-			"version": "none",
-			"packages": [
-				"@devcontainers/cli"
-			]
-		},
-		"ghcr.io/devcontainers-extra/features/eza": {},
+		"ghcr.io/devcontainers-extra/features/devcontainers-cli": {},
+		// "ghcr.io/devcontainers/features/docker-outside-of-docker": {
+		// 	"moby": false
+		// },
+		 "ghcr.io/devcontainers/features/docker-in-docker": {},
 		"ghcr.io/devcontainers/features/github-cli": {},
 		"ghcr.io/joshuanianji/devcontainer-features/github-cli-persistence": {},
 		"ghcr.io/devcontainers-extra/features/claude-code": {},
@@ -25,8 +23,9 @@
 			"persistClaudeDir": true,
 			"persistClaudeJson": true
 		},
-		"ghcr.io/devcontainers-extra/features/starship": {},
-		"ghcr.io/prulloac/devcontainer-features/chezmoi": {}
+		"ghcr.io/devcontainers-extra/features/eza": {},
+		"ghcr.io/devcontainers-extra/features/starship": {}
+		// "ghcr.io/prulloac/devcontainer-features/chezmoi": {}
 		// "ghcr.io/devcontainers-extra/features/zsh-plugins:0": {
 		// 	// "plugins": "nvm eza git gh vscode zsh-syntax-highlighting"
 		// },
@@ -43,10 +42,11 @@
 			"extensions": [
 				"github.vscode-github-actions",
 				"ms-vscode-remote.remote-containers",
-				"mkhl.shfmt",
+				"ms-azuretools.vscode-containers",
+				"quentinguidee.gitignore-ultimate",
 				"esbenp.prettier-vscode",
 				"oderwat.indent-rainbow",
-				"quentinguidee.gitignore-ultimate"
+				"mkhl.shfmt"
 			]
 		}
 	},
