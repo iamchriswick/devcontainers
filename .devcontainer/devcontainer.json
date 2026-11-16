@@ -43,7 +43,8 @@
 				"github.vscode-github-actions",
 				"ms-vscode-remote.remote-containers",
 				"mkhl.shfmt",
-				"esbenp.prettier-vscode"
+				"esbenp.prettier-vscode",
+				"oderwat.indent-rainbow"
 			]
 		}
 	},
