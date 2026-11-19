@@ -1,9 +1,5 @@
 {
-  "enabledPlugins": {
-    "smart-commits-git-commit-message-generator@anthropic-plugin-directory": true
-  },
   "autoMemoryDirectory": ".claude/memory",
-  "includeGitInstructions": true,
   "sandbox": {
     "enabled": false
   }
